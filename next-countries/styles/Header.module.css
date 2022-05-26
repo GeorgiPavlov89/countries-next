@@ -1,0 +1,22 @@
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    padding: 2rem;
+}
+.title > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header {
+    font-weight: 800;
+}
+
+.themeButton {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    
+}
