@@ -1,15 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
 
 
+:root {
+  --background: hsl(0, 0%, 98%);
+  --input: hsl(0, 0%, 52%);
+  --text: hsl(200, 15%, 8%);
+  --elements: hsl(0, 0%, 100%);
+}
+
+[data-theme='dark'] {
+  --background: hsl(207, 26%, 17%);
+  --elements: hsl(209, 23%, 22%);
+  --text: hsl(0, 0%, 100%);
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: 'Nunito', sans-serif;
+  
 }
-
-
-
 * {
   box-sizing: border-box;
 }

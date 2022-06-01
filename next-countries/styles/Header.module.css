@@ -18,5 +18,5 @@
     background-color: inherit;
     border: none;
     cursor: pointer;
-    
+    color: var(--text)
 }
