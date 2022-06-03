@@ -1,22 +1,25 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import SearchAndDropDown from '../components/SearchAndDropDown'
 import dynamic from "next/dynamic"
 import { useEffect, useState, useRef, useCallback } from "react"
 import Error from "../components/Error"
 
-// export async function getServerSideProps() {
-//   const res = await fetch(defaultEndpoint)
-//   const data = await res.json()
+const defaultEndpoint = 'https://restcountries.com/v3.1/all'
 
-//   return {
-//     props: {
-//       data
+export async function getServerSideProps() {
+  const res = await fetch(defaultEndpoint)
+  const data = await res.json()
 
-//     }
-//   }
-// }
+  return {
+    props: {
+      data
+
+    }
+  }
+}
 
 
 
@@ -45,44 +48,52 @@ const regions = [
 
 const Header = dynamic(() => import("../components/Header"), { ssr: false })
 
-export default function Home() {
-  let API = `https://restcountries.com/v3.1/all`;
-  const regionRef = useRef()
+export default function Home({ data }) {
+
+
+
   const searchRef = useRef(null)
-  const [results, updateResults] = useState([])
+  const [results, setResult] = useState(data)
   const [search, setSearch] = useState('')
   const [selectRegion, setSelectRegion] = useState('')
   const [isLoading, setLoading] = useState(false)
 
   const [theme, setTheme] = useState('light')
 
-  console.log(selectRegion)
+
   function handleSearch() {
-    setLoading(true)
     setSearch(searchRef.current.value)
-    console.log(search);
+
   }
 
+  useEffect(() => {
+    const newCountry = data.filter(country => country.name.common.toLowerCase().includes(search.toLocaleLowerCase()))
+    const newCountryRegion = data.filter(country => country.region.toLowerCase().includes(selectRegion.toLocaleLowerCase()))
+    const countryInRegion = newCountryRegion.filter(country => country.name.common.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
 
+    if (selectRegion) {
+      setResult(countryInRegion)
+      setLoading(true)
+    } else if (selectRegion) {
+      setResult(newCountryRegion)
+    } else if (search) {
+      setResult(newCountry)
+    }
+    else {
+      setResult(data)
+    }
+
+
+  }, [selectRegion, search])
+
+  console.log(results)
 
   const switchTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
   }
 
-  useEffect(() => {
-    if (search || selectRegion) {
-      API = `https://restcountries.com/v3.1/all?fields=${search},${selectRegion} `
-    } else {
-      API = `https://restcountries.com/v3.1/all`;
-    }
-    fetch(API)
-      .then((res) => res.json())
-      .then((data) => {
-        updateResults(data)
-        setLoading(false)
-      })
-  }, [search, selectRegion])
+
   return (
     <div className={styles.container} data-theme={theme}>
       <Head>
@@ -104,29 +115,44 @@ export default function Home() {
             regions={regions}
             handleSearch={handleSearch}
             searchRef={searchRef}
-            regionRef={regionRef}
             setSelectRegion={setSelectRegion}
+            results={results}
+            setResult={setResult}
           />
 
           {
-            results.length > 0 ?
-              results.map((item, index) => {
-                return (
-                  <div key={index} className={styles.card}>
-                    <div className={styles.image}>
-                      <Image src={item.flags.svg} width="300px" height="200px" layout="responsive" objectFit="cover" alt="country flag" />
-                    </div>
-                    <div className={styles.cardInfo}>
-                      <div className={styles.info}>
-                        <h3>{item.name.common}</h3>
-                        <p><span> Population:</span> {item.population}</p>
-                        <p><span>Region:</span> {item.region}</p>
-                        <p><span> Capital:</span> {item.capital}</p>
+
+            results.length > 0 ? results.map(({ index, name, flags, population, region, capital, borders, currencies, subregion, languages, tld }) => {
+              return (
+
+                <div key={name.common} className={styles.card}>
+
+                  <Link href={{
+                    pathname: `/country/[country]`,
+                    query: {
+                      index: index,
+
+                    },
+                  }}
+                    as={`/country/${name.common}`}>
+                    <div>
+                      <div className={styles.image}>
+                        <Image src={flags.svg} width="300px" height="200px" layout="responsive" objectFit="cover" alt="country flag" />
+                      </div>
+                      <div className={styles.cardInfo}>
+                        <div className={styles.info}>
+                          <h3>{name.common}</h3>
+                          <p><span> Population:</span> {population}</p>
+                          <p><span>Region:</span> {region}</p>
+                          <p><span> Capital:</span> {capital}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )
-              })
+                  </Link>
+                </div>
+
+              )
+            })
               : <Error isLoading={isLoading} />
           }
 

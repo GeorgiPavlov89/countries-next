@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
 
-export default function SearchAndDropDown({ title, regions, multiSelect = false, handleSearch, searchRef, setSelectRegion }) {
+export default function SearchAndDropDown({ title, regions, multiSelect = false, handleSearch, searchRef, setSelectRegion, setResult, results }) {
     const [open, setOpen] = useState(false);
 
     const toggle = () => setOpen(!open)
