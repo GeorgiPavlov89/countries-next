@@ -31,7 +31,8 @@ export async function getStaticPaths() {
     }
 }
 
-export default function country({ country }) {
+export default function country({ country, theme }) {
+    console.log(theme)
     const currencyArray = Object.values(country.currencies)
     console.log(currencyArray);
     const languegesArray = Object.values(country.languages)
@@ -40,18 +41,18 @@ export default function country({ country }) {
 
         <>
             <Header />
-            <main className={styles.container}>
+            <main className={styles.container} data-theme={theme}>
                 <Link href="/" >
-                <div className={styles.btn}>
+                <div >
                 
-                    <button >
+                    <button className={styles.btn}>
                     <FontAwesomeIcon icon={faArrowLeftLong} style={{  marginRight: ".5rem", color:"var(--text)" }}/>
                         Back
                     </button>
                     </div>
                 </Link>
                 <div className={styles.image}>
-                <Image src={country.flags.svg} width="300px" height="200px" layout="responsive" objectFit="cover" alt="country flag" />
+                <Image src={country.flags.svg} width="300px" height="200px" layout="responsive" objectFit="cover" alt="country flag"  />
                 </div>
                 <div className={styles.info}>
                     <h3>{country.name.common}</h3>
@@ -75,7 +76,22 @@ export default function country({ country }) {
                    })
                }
                 </div>
-                <div></div>
+                <div className={styles.borders}>
+                <span>Border Countries:</span>
+                <div className={styles.borderBtns}>
+                {
+                    
+                    
+                    country.borders.map((border,index) => {
+                        
+                    return (
+                      <button key={index} className={styles.btn}>{border}</button>
+                     )
+                     })
+                     
+                }
+                </div>
+                </div>
             </main>
             
             
