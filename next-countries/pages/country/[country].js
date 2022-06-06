@@ -1,7 +1,10 @@
 import React from 'react'
 import Header from '../../components/Header'
-
-
+import styles from '../../styles/country.module.css'
+import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faArrowLeftLong} from '@fortawesome/free-solid-svg-icons'
+import Image from 'next/image'
 
 
 export async function getStaticProps({ params }) {
@@ -29,16 +32,55 @@ export async function getStaticPaths() {
 }
 
 export default function country({ country }) {
-
+    const currencyArray = Object.values(country.currencies)
+    console.log(currencyArray);
+    const languegesArray = Object.values(country.languages)
+    console.log(languegesArray);
     return (
 
-        <div>
+        <>
             <Header />
+            <main className={styles.container}>
+                <Link href="/" >
+                <div className={styles.btn}>
+                
+                    <button >
+                    <FontAwesomeIcon icon={faArrowLeftLong} style={{  marginRight: ".5rem", color:"var(--text)" }}/>
+                        Back
+                    </button>
+                    </div>
+                </Link>
+                <div className={styles.image}>
+                <Image src={country.flags.svg} width="300px" height="200px" layout="responsive" objectFit="cover" alt="country flag" />
+                </div>
+                <div className={styles.info}>
+                    <h3>{country.name.common}</h3>
+                    <p><span>Native Name:</span>{country.name.official}</p>
+                    <p><span>Population:</span>{country.population}</p>
+                    <p><span>Region:</span>{country.region}</p>
+                    <p><span>Region:</span>{country.subregion}</p>
+                    <p><span>Region:</span>{country.capital}</p>
+                </div>
+                <div className={styles.info}>
+                <p><span>Top Level Domain:</span>{country.tld}</p>
+               {
+                currencyArray.map(({ name }) => {
+        return <p key={name}><span>Currencies:</span>{name}</p>
+    })
+               }
 
-            <p>{country.name.common}</p>
-            <p>{country.capital}</p>
+               {
+                   languegesArray.map((index) => {
+                       return <p key={index}><span>Languages:</span>{languegesArray}</p>
+                   })
+               }
+                </div>
+                <div></div>
+            </main>
+            
+            
 
-        </div>
+        </>
     )
 
 }

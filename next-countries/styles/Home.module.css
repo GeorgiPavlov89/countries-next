@@ -54,10 +54,9 @@
   font-size: 14px;
   
 }
-
 .info  span {
   font-weight: 600;
-  
+  padding-right: 0.25rem;
 }
 
 

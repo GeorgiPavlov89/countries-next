@@ -122,7 +122,7 @@ export default function Home({ data }) {
 
           {
 
-            results.length > 0 ? results.map(({ index, name, flags, population, region, capital, borders, currencies, subregion, languages, tld }) => {
+            results.length > 0 ? results.map(({ index, name, flags, population, region, capital }) => {
               return (
 
                 <div key={name.common} className={styles.card}>
