@@ -14,7 +14,6 @@
     box-shadow: var(--input) 0 0 5px;
     display: flex;
     align-items: center;
-
 }
 .search > input {
     margin-left: 2rem;
@@ -38,7 +37,6 @@
     -webkit-box-shadow:var(--input) 0 0 5px;
     -moz-box-shadow:var(--input) 0 0 5px;
     box-shadow: var(--input) 0 0 5px;
-    
 }
 .ddHeader {
     display:flex;
@@ -62,7 +60,6 @@
     -webkit-box-shadow:var(--input) 0 0 5px;
     -moz-box-shadow:var(--input) 0 0 5px;
     box-shadow: var(--input) 0 0 5px;
-    
 }
 
 .listButton {
@@ -77,4 +74,16 @@
 
 .listButton:hover {
     background-color:lightblue;
+}
+ /* Media Queries */
+@media (min-width: 45em) {
+    .container {
+        width: 100%;
+        flex-direction:row;
+        justify-content: space-between;
+        margin-top: 5rem;
+    }
+    .search {
+        width: 30%;
+    }
 }

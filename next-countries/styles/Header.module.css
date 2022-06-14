@@ -3,7 +3,8 @@
     display: flex;
     justify-content: space-between;
     width:100%;
-    padding: 2rem;
+    padding:0 1rem;
+    background-color: var(--elements);
 }
 .title > div {
     display: flex;
@@ -12,6 +13,7 @@
 }
 .header {
     font-weight: 800;
+    color: var(--text)
 }
 
 .themeButton {
@@ -19,4 +21,11 @@
     border: none;
     cursor: pointer;
     color: var(--text)
+}
+
+ /* Media Queries */
+@media (min-width: 45em) {
+    .title {
+        padding: 0 3rem;
+    }
 }
