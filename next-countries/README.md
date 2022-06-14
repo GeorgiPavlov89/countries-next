@@ -42,8 +42,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: (https://www.frontendmentor.io/solutions/built-with-nextjs-wXtl_J8RKp)
+- Live Site URL:(https://next-countries-api-phi.vercel.app/)
 
 
 
