@@ -11,7 +11,7 @@ import { CountriesContext } from '../store';
 
 
 
-export default function countryPage({ country }) {
+export default function DetailPage({ country }) {
     const ctx = useContext(CountriesContext);
    console.log(country);
    console.log(ctx);
