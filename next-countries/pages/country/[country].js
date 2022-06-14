@@ -13,7 +13,7 @@ import Header from '../../components/Header'
 
 
 
-export default function country() {
+export default function Country() {
 
     const [ currentCountry, setCurentCountry ] = useState();
     const ctx = useContext(CountriesContext)
