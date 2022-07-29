@@ -19,15 +19,15 @@ export default function DetailPage({ country }) {
     console.log(currencyArray);
     const languegesArray = Object.values(country.languages)
     console.log(languegesArray);
-    
+
     return (
-        
+
         <>
-            
+
             <main className={styles.container} data-theme={ctx.theme} >
                 <Link href="/"  >
                 <div >
-                
+
                     <button className={styles.btn}>
                     <FontAwesomeIcon icon={faArrowLeftLong} style={{  marginRight: ".5rem", color:"var(--text)" }}/>
                         Back
@@ -58,7 +58,7 @@ export default function DetailPage({ country }) {
                    languegesArray.map((language) => {
                        return <span key={language}>{language}</span>
                    })
-                   
+
                }
                </p>
                 </div>
@@ -66,24 +66,24 @@ export default function DetailPage({ country }) {
                 <span>Border Countries:</span>
                 <div className={styles.borderBtns}>
                 {
-                    
-                    
-              country.borders  &&  country.borders.map((border, index) => {
-                        
+
+
+               country.borders   &&  country.borders.map((border, index) => {
+
                     return (
                         <Link href={`${border}`} key={border} passHref>
                       <button  className={styles.btn} >{border}</button>
                       </Link>
                      )
                      })
-                     
+
                 }
                 </div>
                 </div>
                 </div>
             </main>
-            
-            
+
+
 
         </>
     )
