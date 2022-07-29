@@ -68,7 +68,7 @@ export default function DetailPage({ country }) {
                 {
                     
                     
-                    country.borders.map((border, index) => {
+              country.borders  &&  country.borders.map((border, index) => {
                         
                     return (
                         <Link href={`${border}`} key={border} passHref>
